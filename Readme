@@ -1,1 +1,2 @@
-SpringBoot+MyBatis+MySql(mariadb)+Testng+Swagger+Lombok
+SpringBoot+MyBatis+MySql(mariadb)+Testng+Swagger+Lombok    
+采用SqlSessionTemplate
