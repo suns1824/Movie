@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.movie.dal"/>
+
+    <bean id="yamlProperties" class="org.springframework.beans.factory.config.YamlPropertiesFactoryBean">
+        <property name="resources" value="classpath:application.yml"/>
+    </bean>
+
+    <context:property-placeholder properties-ref="yamlProperties"/>
+
+    <!--xml读取yml貌似不成功，直接写入-->
+    <bean id="movierecDs" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="url" value="jdbc:mariadb://47.99.205.186:3307/movierec"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1015sunqi"/>
+    </bean>
+    <bean id="movieSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="movierecDs" p:mapperLocations="classpath*:mapping/*.xml"/>
+    <bean id="movieMybatisTemplate" class="org.mybatis.spring.SqlSessionTemplate" c:_0-ref="movieSqlSessionFactory"/>
+
+</beans>
