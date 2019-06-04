@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="RatingMapper" >
-  <resultMap id="BaseResultMap" type="com.movie.model.Rating" >
+  <resultMap id="ratingMap" type="com.movie.dal.daoobj.RatingDo" >
     <result column="userId" property="userId"/>
     <result column="movieId" property="movieId"/>
     <result column="rating" property="rating"/>
   </resultMap>
-  <sql id="Base_Column_List" >
+  <resultMap id="greaterMap" type="com.movie.dal.daoobj.MovieDo">
+    <result column="movieId" property="movieId"/>
+    <result column="title" property="title"/>
+    <result column="genres" property="genres"/>
+    <result column="imdbId" property="imdbId"/>
+    <result column="tmdbId" property="tmdbId"/>
+  </resultMap>
+
+  <sql id="rating_Column_List" >
     userId, movieId, rating
   </sql>
-  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  <sql id="movie_Column_List" >
+          movies.movieId, movies.title, movies.genres, links.imdbId, links.tmdbId
+  </sql>
+
+  <select id="selectByUserId" resultMap="ratingMap" parameterType="java.util.Map" >
     select
-    <include refid="Base_Column_List" />
+    <include refid="rating_Column_List" />
     from ratings
     where userId = #{userId}
+  </select>
+
+  <select id="selectGreterThanxMovieList" resultMap="greaterMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="movie_Column_List"/>
+    from ratings
+    JOIN movies ON ratings.movieId = movies.movieId
+    JOIN links ON ratings.movieId = links.movieId
+    WHERE ratings.rating <![CDATA[ > ]]> #{rating}
+    GROUP BY ratings.movieId
+    ORDER BY links.imdbId
+    limit #{pageIndex}, #{pageSize}
   </select>
 
 </mapper>
