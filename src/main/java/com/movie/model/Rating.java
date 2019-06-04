@@ -11,4 +11,6 @@ public class Rating {
 
     private Float rating;
 
+    private Integer timestamp;
+
 }

@@ -1,7 +1,12 @@
 SpringBoot+MyBatis+MySql(mariadb)+Testng+Swagger+Lombok    
 采用SqlSessionTemplate      
+该工程还包含了kafka producer端，consumer端实现会出现在SparkPro中（那个工程里面很杂，各种程序大汇总）。consumer端会有多个：  
+>* 把数据写入mysql/hbase，就是mysql中的ratings表数据来源，满足普通的业务接口。
+>* 交给Spark Streaming做实时推荐，将数据写入Hbase/Mysql。
 
-整合大数据、Java后端(后期整合为Spring Cloud或者Dubbo工程)、前端。这个是Java后端。  
+
+整合大数据、Java后端(后期整合为Spring Cloud或者Dubbo工程)、前端。这个是Java后端。    
+
 
 207:115
 10-2+3+1+1l  50 10 10 100    :   1(3)+20+9  1+10   90
