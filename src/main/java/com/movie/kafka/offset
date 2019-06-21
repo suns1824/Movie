@@ -1,0 +1,1 @@
+#用来定时记录写入offset，防止崩溃后数据重传。maybe use redis or zk is better.

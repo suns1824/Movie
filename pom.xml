@@ -15,8 +15,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.0.2.RELEASE</version>
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -67,12 +67,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
 
-		<!--配置jsp jstl的支持-->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
-
 		<!--添加对tomcat的支持-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,11 +74,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!--对jsp的支持-->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency>
 		<!-- mysql连接驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -111,7 +100,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- alibaba的druid数据库连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -164,6 +152,35 @@
 			<artifactId>kafka_2.11</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+
+        <!--集成redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>2.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-keyvalue</artifactId>
+            <version>2.0.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>2.0.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
     </dependencies>
 
 

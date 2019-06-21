@@ -4,6 +4,8 @@ import com.movie.dal.MovieDao;
 import com.movie.dal.daoobj.MovieDo;
 import com.movie.dal.daoobj.RatingDo;
 import com.movie.dal.daoobj.UserDo;
+import com.movie.model.Rating;
+import com.movie.model.common.Result;
 import com.movie.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,11 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<UserDo> getMovfavorUserList(int movieId) {
+        return null;
+    }
+
+    @Override
+    public Result commitRating(Rating rating) {
         return null;
     }
 }

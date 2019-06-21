@@ -21,6 +21,13 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+    redis:
+        host: 47.99.205.186
+        password: 1015sunqi
+        port: 6379
+        timeout: 1000
+        database: 0
+
 mybatis:
   mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.movie.dal

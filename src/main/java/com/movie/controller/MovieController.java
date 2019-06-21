@@ -5,15 +5,22 @@ import com.movie.dal.daoobj.MovieDo;
 import com.movie.dal.daoobj.RatingDo;
 import com.movie.dal.daoobj.UserDo;
 import com.movie.model.*;
+import com.movie.model.common.Result;
 import com.movie.service.MovieService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+/*
+现在不考虑cookie，session等身份信息处理，因为还没用户模块,返回应该统一为Result。
+ */
 
 @RestController
 @RequestMapping("/movie")
@@ -37,15 +44,15 @@ public class MovieController {
     join movies on movies.movieId = ratings.movieId
     join links on ratings.movieId = links.movieId
     where ratings.rating > 4.5
-    group by ratings.movieId
+    group by ratings.movieI x c
     order by links.imdbId
     limit 20;
      */
     @ApiOperation(value = "评分x以上的movieid,tile,genres,imdbid,tmdbid,按照imdbid排序")
     @RequestMapping("/findGreaterThanxImdb")
-    public List<MovieDo> getGreaterThanxMovieList(@RequestParam("rating") float rating,
-                                                  @RequestParam("pageIndex") int pageIndex,
-                                                  @RequestParam("pageSize") int pageSize) {
+    public List<MovieDo> getGreaterThanxMovieList(@RequestParam("rating") Float rating,
+                                                  @RequestParam("pageIndex") Integer pageIndex,
+                                                  @RequestParam("pageSize") Integer pageSize) {
         List<MovieDo> list = movieService.getGreaterThanxMovieList(rating, pageIndex, pageSize);
         return list;
     }
@@ -64,9 +71,48 @@ public class MovieController {
      */
     @ApiOperation(value = "给电影评分最高的十位用户")
     @RequestMapping("/getMovfavorUser")
-    public List<UserDo> getMovfavorUserList(@RequestParam("movieId") int movieId) {
+    public List<UserDo> getMovfavorUserList(@RequestParam("movieId") Integer movieId) {
         List<UserDo> list = movieService.getMovfavorUserList(movieId);
         return list;
     }
+
+    /*
+    提交打分数据
+    insert into ratings
+    values(userId, movieId, rating, timestamp)
+     */
+    public Result commitRating(@RequestParam("userId") Integer userId,
+                                       @RequestParam("movieId") Integer movieId,
+                                       @RequestParam("rating") Float rate,
+                                       @RequestParam("timestamp") Integer ratingTime) {
+        Rating rating = Rating.builder().userId(userId).movieId(movieId).rating(rate).timestamp(ratingTime).build();
+
+        Result result = movieService.commitRating(rating);
+
+        return result;
+    }
+
+
+
+    /*
+     查找某一类型的电影中评分最高的10部电影,满足打分人数超过10次:
+     先查哪些电影超过十次评分：
+     select movieId, count(rating) count from ratings group by movieId having count > 100;
+
+     select a.movieId, movies.title, avg(a.rating) score from ratings a
+     join movies on movies.movieId = a.movieId
+     join  (select b.movieId, count(b.rating) count from ratings b group by b.movieId having count > 100) as c
+     on a.movieId = c.movieId
+     where movies.genres like '%Comedy%'
+     group by a.movieId
+     order by score desc
+     limit 10
+     */
+    @ApiOperation(value = "查找某一类型的电影中评分最高的10部电影")
+    @RequestMapping("/getTopMovies")
+    public List<Movie> getTopMovies(@RequestParam("genres") String genre) {
+        return null;
+    }
+
 
 }
