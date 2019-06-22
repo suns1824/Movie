@@ -1,4 +1,4 @@
-package com.movie.util;
+package com.movie.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RedisHelper {
+public class RedisClient {
     @Autowired
     private RedisTemplate redisTemplate;
     /**

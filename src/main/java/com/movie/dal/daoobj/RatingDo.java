@@ -15,4 +15,6 @@ public class RatingDo implements Serializable{
 
     private Float rating;
 
+    private Integer timeStamp;
+
 }

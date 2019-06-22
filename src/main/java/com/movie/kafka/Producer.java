@@ -59,11 +59,12 @@ public class Producer extends Thread {
                 }
                 count++;
                 String[] tmpRow = line.split(",");
-                Rating rating = new Rating();
-                rating.setUserId(Integer.parseInt(tmpRow[0]));
-                rating.setMovieId(Integer.parseInt(tmpRow[1]));
-                rating.setRating(Float.parseFloat(tmpRow[2]));
-                rating.setTimestamp(Integer.parseInt(tmpRow[3]));
+                Rating rating = Rating.builder()
+                .userId(Integer.parseInt(tmpRow[0]))
+                .movieId(Integer.parseInt(tmpRow[1]))
+                .rating(Float.parseFloat(tmpRow[2]))
+                .timestamp(Integer.parseInt(tmpRow[3]))
+                        .build();
                 producer.send(new ProducerRecord(topic, rating.getUserId(), rating), new MovieCallBack(rating.getTimestamp(), rating.getUserId(), rating));
                 try {
                     Thread.sleep(50);

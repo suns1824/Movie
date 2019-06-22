@@ -1,10 +1,12 @@
 package com.movie.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
 public class Movie {
     private Integer movieId;
 
@@ -25,5 +27,7 @@ public class Movie {
     private Integer scoreCount;
 
     private String movieIntro;
+
+    private String genres;
 
 }

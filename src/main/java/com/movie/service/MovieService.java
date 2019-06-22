@@ -1,19 +1,18 @@
 package com.movie.service;
 
-import com.movie.dal.daoobj.MovieDo;
-import com.movie.dal.daoobj.RatingDo;
-import com.movie.dal.daoobj.UserDo;
+import com.movie.model.Movie;
 import com.movie.model.Rating;
+import com.movie.model.User;
 import com.movie.model.common.Result;
 
 import java.util.List;
 
 public interface MovieService {
-    List<RatingDo> findRatingByUserId(int id);
+    List<Rating> findRatingByUserId(int id, int pageIndex, int pageSize);
 
-    List<MovieDo> getGreaterThanxMovieList(float rating, int pageIndex, int pageSize);
+    List<Movie> getGreaterThanxMovieList(float rating, int pageIndex, int pageSize);
 
-    List<UserDo> getMovfavorUserList(int movieId);
+    List<User> getMovfavorUserList(int movieId);
 
 
 

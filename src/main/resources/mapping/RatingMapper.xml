@@ -26,6 +26,7 @@
     <include refid="rating_Column_List" />
     from ratings
     where userId = #{userId}
+    limit #{pageIndex}, #{pageSize}
   </select>
 
   <select id="selectGreterThanxMovieList" resultMap="greaterMap" parameterType="java.util.Map">

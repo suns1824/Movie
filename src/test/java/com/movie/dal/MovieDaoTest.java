@@ -19,8 +19,8 @@ public class MovieDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void selectByUserId() {
         List<RatingDo> list = new ArrayList<>();
-        list = movieDao.selectByUserId(1);
-        assertEquals(20, list.size());
+        list = movieDao.selectByUserId(1, 5, 10);
+        assertEquals(10, list.size());
     }
 
     @Test

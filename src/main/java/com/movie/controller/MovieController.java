@@ -1,15 +1,12 @@
 package com.movie.controller;
 
-import com.movie.dal.MovieDao;
 import com.movie.dal.daoobj.MovieDo;
-import com.movie.dal.daoobj.RatingDo;
 import com.movie.dal.daoobj.UserDo;
 import com.movie.model.*;
 import com.movie.model.common.Result;
 import com.movie.service.MovieService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +30,10 @@ public class MovieController {
     //按照userid查询,返回集合
     @ApiOperation(value = "userId查询电影评分")
     @RequestMapping("/findRatingByUserId")
-    public List<RatingDo> findRatingByUserId(@RequestParam("userId") Integer userID){
-        List<RatingDo> list = movieService.findRatingByUserId(userID);
+    public List<Rating> findRatingByUserId(@RequestParam("userId") Integer userID,
+                                           @RequestParam("pageIndex") Integer pageIndex,
+                                           @RequestParam("pageSize") Integer pageSize){
+        List<Rating> list = movieService.findRatingByUserId(userID, pageIndex, pageSize);
         return list;
     }
 
@@ -50,10 +49,10 @@ public class MovieController {
      */
     @ApiOperation(value = "评分x以上的movieid,tile,genres,imdbid,tmdbid,按照imdbid排序")
     @RequestMapping("/findGreaterThanxImdb")
-    public List<MovieDo> getGreaterThanxMovieList(@RequestParam("rating") Float rating,
+    public List<Movie> getGreaterThanxMovieList(@RequestParam("rating") Float rating,
                                                   @RequestParam("pageIndex") Integer pageIndex,
                                                   @RequestParam("pageSize") Integer pageSize) {
-        List<MovieDo> list = movieService.getGreaterThanxMovieList(rating, pageIndex, pageSize);
+        List<Movie> list = movieService.getGreaterThanxMovieList(rating, pageIndex, pageSize);
         return list;
     }
 
@@ -71,8 +70,8 @@ public class MovieController {
      */
     @ApiOperation(value = "给电影评分最高的十位用户")
     @RequestMapping("/getMovfavorUser")
-    public List<UserDo> getMovfavorUserList(@RequestParam("movieId") Integer movieId) {
-        List<UserDo> list = movieService.getMovfavorUserList(movieId);
+    public List<User> getMovfavorUserList(@RequestParam("movieId") Integer movieId) {
+        List<User> list = movieService.getMovfavorUserList(movieId);
         return list;
     }
 
