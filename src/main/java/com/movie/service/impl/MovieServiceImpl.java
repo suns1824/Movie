@@ -50,7 +50,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     /*
-    数据库和redis的缓存一致性处理：选择先更新数据库，再删缓存策略
+    数据库和redis的缓存一致性处理：
+    1.选择先更新数据库，再删缓存策略,；
+    2.选择先删缓存，再更新数据库，A线程删后，B线程数据库读取并存入redis，A更新数据库，导致不一致，可以通过延时双删策略
      */
     @Override
     public Result commitRating(Rating rating) {
