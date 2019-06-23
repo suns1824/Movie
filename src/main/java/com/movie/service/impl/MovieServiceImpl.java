@@ -49,6 +49,9 @@ public class MovieServiceImpl implements MovieService {
         return null;
     }
 
+    /*
+    数据库和redis的缓存一致性处理：选择先更新数据库，再删缓存策略
+     */
     @Override
     public Result commitRating(Rating rating) {
         return null;
